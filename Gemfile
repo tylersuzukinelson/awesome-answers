@@ -40,6 +40,9 @@ group :development do
 end
 
 group :development, :test do
+  # Generate fake info for quickly filling a test database
+  gem "faker"
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
