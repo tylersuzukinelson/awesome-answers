@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   get "/hello" => "welcome#hello"
 
+  get "/questions/new" => "questions#new", as: "new_question" # as changes the name of the helper method
+
+  post "/questions" => "questions#create", as: :questions
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

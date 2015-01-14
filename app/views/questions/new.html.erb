@@ -1,0 +1,19 @@
+<h1>Create New Questions</h1>
+
+<%# Catch any error messages returned by the form %>
+<% if @question.errors.any? %>
+<ul>
+  <% @question.errors.full_messages.each do |error| %>
+  <li><%= error %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<%# form_for is built-in view helper to generate a form %>
+<%= form_for @question do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %><br />
+  <%= f.label :body %>
+  <%= f.text_area :body %><br />
+  <%= f.submit %>
+<% end %>
