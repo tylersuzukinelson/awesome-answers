@@ -1,0 +1,8 @@
+<% @questions.each do |question| %>
+
+<h3><%= link_to question.title, question_path(question) %></h3>
+<p>
+  <%= question.body.gsub(/\n/, "<br />").html_safe if question.body %>
+</p>
+
+<% end %>

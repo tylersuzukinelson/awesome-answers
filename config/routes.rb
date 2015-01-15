@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
 
   root "welcome#index"
-
   get "/about" => "about#index"
-
   get "/hello" => "welcome#hello"
-
-  get "/questions/new" => "questions#new", as: "new_question" # as changes the name of the helper method
-
-  post "/questions" => "questions#create", as: :questions
+  resources :questions
+  # get "/questions" => "questions#index"
+  # get "/questions/new" => "questions#new", as: "new_question" # as changes the name of the helper method
+  # post "/questions" => "questions#create"
+  # get "/questions/:id" => "questions#show", as: :question
+  # get "/questions/:id/edit" => "questions#edit", as: :edit_question
+  # patch "/questions/:id" => "questions#update"
+  # delete "/questions/:id" => "questions#delete"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

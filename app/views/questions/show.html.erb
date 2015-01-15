@@ -1,0 +1,5 @@
+<%= "<em>#{flash[:notice]}</em>".html_safe if flash[:notice] %><h3><%= @question.title %></h3>
+<p>
+  <%= @question.body.gsub(/\n/, "<br />").html_safe %>
+</p>
+<p>View Count: <%= @question.view_count %> | [<%= link_to "edit question", edit_question_path %>]</p>
