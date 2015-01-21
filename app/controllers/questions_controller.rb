@@ -25,6 +25,8 @@ class QuestionsController < ApplicationController
 
   def show
     @question.increment!(:view_count)
+    @answer = Answer.new
+    @answers = @question.answers
   end
 
   def edit

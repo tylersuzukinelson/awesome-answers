@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   root "welcome#index"
   get "/about" => "about#index"
   get "/hello" => "welcome#hello"
-  resources :questions
+  resources :questions do
+    resources :answers, only: [:create, :destroy]
+  end
+
   # get "/questions" => "questions#index"
   # get "/questions/new" => "questions#new", as: "new_question" # as changes the name of the helper method
   # post "/questions" => "questions#create"

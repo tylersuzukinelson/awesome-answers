@@ -3,3 +3,21 @@
   <%= @question.body.gsub(/\n/, "<br />").html_safe %>
 </p>
 <p>View Count: <%= @question.view_count %> | [<%= link_to "edit question", edit_question_path %>]</p>
+
+<hr>
+
+<h2>Create an Answer</h2>
+<%# form_for @answer, url: question_answers_apth(@question) do |f| %>
+<%= form_for [@question, @answer] do |f| %>
+<%= f.label :body %>
+<%= f.text_area :body %>
+<%= f.submit %>
+<% end %>
+
+<hr>
+
+<h2>Answers</h2>
+<% @answers.each do |answer| %>
+  <%= answer.body %>
+  <hr>
+<% end %>

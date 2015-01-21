@@ -1,4 +1,6 @@
 class Question < ActiveRecord::Base
+  has_many :answers
+
   validates :title, presence: true, uniqueness: {scope: :body, case_sensitive: false}, format: /.+/
   validates :body, presence: {message: "must be provided!!"}
   validates :view_count, numericality: {greater_than_or_equal_to: 0}
