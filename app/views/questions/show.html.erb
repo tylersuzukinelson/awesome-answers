@@ -19,6 +19,7 @@
 <h2>Answers</h2>
 <% @question.answers.each do |answer| %>
   <%= link_to "Delete", question_answer_path(@question,answer), method: :delete, class: "btn btn-danger" %>
+    <%= "<em>Answer by #{answer.user.first_name}:</em> ".html_safe if answer.user %>
   <%= answer.body %>
   <hr>
   <h3>Enter a comment</h3>

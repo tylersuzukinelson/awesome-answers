@@ -1,8 +1,11 @@
 class AnswersController < ApplicationController
 
+  before_action :user_authentication!
+
   def create
     @question = Question.find params[:question_id]
     @answer = @question.answers.new permitted_params
+    @answer.user = current_user
     if @answer.save
       redirect_to @question
     else
