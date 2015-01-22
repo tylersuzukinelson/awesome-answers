@@ -2,6 +2,8 @@ class QuestionsController < ApplicationController
 
   before_action :find_question, only: [:show, :edit, :update, :destroy]
 
+  before_action :authenticate_user!, except: [:index, :show]
+
   def index
     @questions = Question.all.order("created_at DESC")
   end
@@ -16,6 +18,7 @@ class QuestionsController < ApplicationController
   def create
     # To mass assign in the Question.create method, the params must be first .permit(ted)
     @question = Question.new question_params
+    @question.user = current_user
     if @question.save
       redirect_to @question, notice: "Question created successfully!"
     else

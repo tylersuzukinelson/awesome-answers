@@ -2,7 +2,7 @@
 <p>
   <%= @question.body.gsub(/\n/, "<br />").html_safe %>
 </p>
-<p>View Count: <%= @question.view_count %> | [<%= link_to "edit question", edit_question_path %>]</p>
+<p><%= "Created by #{@question.user.first_name} | " if @question.user %>View Count: <%= @question.view_count %> | [<%= link_to "edit question", edit_question_path %>]</p>
 
 <hr>
 
