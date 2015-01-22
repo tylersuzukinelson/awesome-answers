@@ -6,7 +6,17 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to @question
     else
-      redirect_to @question, notice: error_messages
+      render "questions/show", notice: error_messages
+    end
+  end
+
+  def destroy
+    @question = Question.find params[:question_id]
+    @answer = Answer.find params[:id]
+    if @answer.destroy
+      redirect_to @question
+    else
+      render "questions/show", notice: error_messages
     end
   end
 

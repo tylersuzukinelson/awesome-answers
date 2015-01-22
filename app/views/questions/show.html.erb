@@ -17,7 +17,23 @@
 <hr>
 
 <h2>Answers</h2>
-<% @answers.each do |answer| %>
+<% @question.answers.each do |answer| %>
+  <%= link_to "Delete", question_answer_path(@question,answer), method: :delete, class: "btn btn-danger" %>
   <%= answer.body %>
   <hr>
+  <h3>Enter a comment</h3>
+  <%= form_for [answer, (@comment || Comment.new)] do |f| %>
+    <div class="form-group">
+      <%= f.label :body %>
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
+    <%= f.submit class: "btn btn-info btn-sm" %>
+  <% end %>
+  <hr>
+  <% answer.comments.each do |comment| %>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to "Delete", answer_comment_path(answer, comment), method: :delete, class: "btn btn-default" %>
+    <%= comment.body %>
+    <hr>
+  <% end %>
 <% end %>

@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     resources :answers, only: [:create, :destroy]
   end
 
+  resources :answers, only: [] do
+    resources :comments, only: [:create, :destroy]
+  end
+
   # get "/questions" => "questions#index"
   # get "/questions/new" => "questions#new", as: "new_question" # as changes the name of the helper method
   # post "/questions" => "questions#create"

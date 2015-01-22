@@ -1,5 +1,6 @@
 class Question < ActiveRecord::Base
-  has_many :answers
+  has_many :answers, dependent: :destroy
+  has_many :comments, through: :answers
 
   validates :title, presence: true, uniqueness: {scope: :body, case_sensitive: false}, format: /.+/
   validates :body, presence: {message: "must be provided!!"}
