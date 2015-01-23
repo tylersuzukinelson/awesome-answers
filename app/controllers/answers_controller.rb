@@ -14,8 +14,8 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @question = Question.find params[:question_id]
-    @answer = Answer.find params[:id]
+    @question = current_user.questions.find params[:question_id]
+    @answer = current_user.answers.find params[:id]
     if @answer.destroy
       redirect_to @question
     else

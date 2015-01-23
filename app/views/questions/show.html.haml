@@ -1,0 +1,31 @@
+= "<em>#{flash[:notice]}</em>".html_safe if flash[:notice]
+%h3= @question.title
+%p= @question.body.gsub(/\n/, "<br />").html_safe
+%p
+  = "Created by #{@question.user.first_name} | " if @question.user
+  View Count: #{@question.view_count} | [#{link_to "edit question", edit_question_path}]
+%hr
+%h2 Create an Answer
+-# form_for @answer, url: question_answers_apth(@question) do |f|
+= form_for [@question, @answer] do |f|
+  = f.label :body
+  = f.text_area :body
+  = f.submit
+%hr
+%h2 Answers
+- @question.answers.each do |answer|
+  = link_to "Delete", question_answer_path(@question,answer), method: :delete, class: "btn btn-danger"
+  = "<em>Answer by #{answer.user.first_name}:</em> ".html_safe if answer.user
+  = answer.body
+  %h3 Enter a comment
+  = form_for [answer, (@comment || Comment.new)] do |f|
+    .form-group
+      = f.label :body
+      = f.text_area :body, class: "form-control"
+    .form-group
+      = f.submit class: "btn btn-info btn-sm"
+  %hr
+  - answer.comments.each do |comment|
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = link_to "Delete", answer_comment_path(answer, comment), method: :delete, class: "btn btn-default"
+    = comment.body
+    %hr

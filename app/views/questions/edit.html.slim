@@ -1,0 +1,8 @@
+h1(style="display:inline-block")
+  | Edit Question
+- if @question.errors.any?
+ul
+  - @question.errors.full_messages.each do |error|
+    li= error
+= render "form"
+= link_to "Delete", question_path(@question), method: :delete, data: {confirm: "Are you sure?"}
