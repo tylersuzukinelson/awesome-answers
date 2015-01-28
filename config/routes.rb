@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get "/hello" => "welcome#hello"
   resources :questions do
     resources :answers, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
+    resources :favorites, only: [:create, :destroy]
   end
 
   resources :answers, only: [] do

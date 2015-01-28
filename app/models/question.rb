@@ -3,6 +3,12 @@ class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :comments, through: :answers
 
+  has_many :likes, dependent: :destroy
+  has_many :user_likes, through: :likes, source: :user
+
+  has_many :favorites, dependent: :destroy
+  has_many :user_favorites, through: :favorites, source: :user
+
   validates :title, presence: true, uniqueness: {scope: :body, case_sensitive: false}, format: /.+/
   validates :body, presence: {message: "must be provided!!"}
   validates :view_count, numericality: {greater_than_or_equal_to: 0}
@@ -28,6 +34,14 @@ class Question < ActiveRecord::Base
     order("updated_at DESC").limit(num)
   end
 
+  def like_count
+    likes.count
+  end
+
+  def like_for(user)
+    likes.find_by_user_id(user.id)
+  end
+
   private
 
   def stop_words
@@ -39,4 +53,5 @@ class Question < ActiveRecord::Base
   def set_defaults
     self.view_count ||= 0
   end
+
 end
