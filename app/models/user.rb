@@ -16,4 +16,12 @@ class User < ActiveRecord::Base
   def has_liked?(question)
     liked_questions.include? question
   end
+
+  def has_favorited?(question)
+    favorited_questions.include? question
+  end
+
+  def favorite_for(question)
+    favorites.where(question_id: question.id).first
+  end
 end

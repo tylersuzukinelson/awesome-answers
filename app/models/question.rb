@@ -9,6 +9,9 @@ class Question < ActiveRecord::Base
   has_many :favorites, dependent: :destroy
   has_many :user_favorites, through: :favorites, source: :user
 
+  has_many :categorizations, dependent: :destroy
+  has_many :categories, through: :categorizations
+
   validates :title, presence: true, uniqueness: {scope: :body, case_sensitive: false}, format: /.+/
   validates :body, presence: {message: "must be provided!!"}
   validates :view_count, numericality: {greater_than_or_equal_to: 0}

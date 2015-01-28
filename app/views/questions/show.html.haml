@@ -7,7 +7,11 @@
   - if user_signed_in? && current_user.has_liked?(@question)
     | [#{link_to "unlike", question_like_path(@question, @question.like_for(current_user)), method: :delete}]
   - else
-    | [#{link_to "like", question_likes_path(@question), method: :post}]
+    | [#{link_to "like", question_likes_path(@question), method: :post}] 
+  - if user_signed_in? && current_user.has_favorited?(@question)
+    | #{link_to "<span class=\"glyphicon glyphicon-star\"></span>".html_safe, question_favorite_path(@question, current_user.favorite_for(@question)), method: :delete}
+  - else
+    | #{link_to "<span class=\"glyphicon glyphicon-star-empty\"></span>".html_safe, question_favorites_path(@question), method: :post}
 %hr
 %h2 Create an Answer
 -# form_for @answer, url: question_answers_apth(@question) do |f|

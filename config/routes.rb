@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'favorites/create'
+
+  get 'favorites/destroy'
+
   devise_for :users
   root "welcome#index"
   get "/about" => "about#index"
