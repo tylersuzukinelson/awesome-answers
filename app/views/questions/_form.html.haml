@@ -1,9 +1,12 @@
-= form_for @question do |f|
+= form_for @question, remote: true do |f|
   .form-group
     = f.label :title
     = f.text_field :title, class: "form-control"
   .form-group
     = f.label :body
     = f.text_area :body, class: "form-control"
+  .form-group
+    = f.label :category_ids
+    = f.collection_check_boxes :category_ids, Category.all, :id, :name
   .form-group
     = f.submit class: "btn btn-primary"

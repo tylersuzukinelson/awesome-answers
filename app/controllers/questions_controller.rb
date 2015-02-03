@@ -19,16 +19,26 @@ class QuestionsController < ApplicationController
     # To mass assign in the Question.create method, the params must be first .permit(ted)
     @question = Question.new question_params
     @question.user = current_user
-    if @question.save
-      redirect_to @question, notice: "Question created successfully!"
-    else
-      render :new
+    respond_to do |format|
+      if @question.save
+        format.html { redirect_to @question, notice: "Question created successfully!" }
+        format.js { render }
+      else
+        format.html { render :new }
+        format.js { render js: "alert('failure');" }
+      end
     end
   end
 
   def show
     @question.increment!(:view_count)
     @answer = Answer.new
+    respond_to do |format|
+      format.html { render }
+      format.json { render json: @question.to_json }
+      format.text { render text: @question.title }
+      format.xml { render xml: @question.to_xml }
+    end
   end
 
   def edit
@@ -57,7 +67,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit([:title, :body])
+    params.require(:question).permit([:title, :body, {category_ids: []}])
   end
 
 end

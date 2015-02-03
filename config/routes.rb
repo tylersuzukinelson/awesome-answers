@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
+  match "/delayed_job" => DelayedJobWeb, anchor: false, via: [:get, :post]
+
   # get "/questions" => "questions#index"
   # get "/questions/new" => "questions#new", as: "new_question" # as changes the name of the helper method
   # post "/questions" => "questions#create"
