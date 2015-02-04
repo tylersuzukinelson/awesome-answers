@@ -70,7 +70,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit([:title, :body, {category_ids: []}])
+    params.require(:question).permit([:title, :body, {category_ids: []}, :image])
   end
 
   def restrict_access

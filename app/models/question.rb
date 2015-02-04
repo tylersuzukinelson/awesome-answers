@@ -17,6 +17,8 @@ class Question < ActiveRecord::Base
   validates :view_count, numericality: {greater_than_or_equal_to: 0}
   validate :stop_words
 
+  mount_uploader :image, ImageUploader
+
   #     SOME COMMON CALL BACKS:
   # after_initialize
   # before_validation

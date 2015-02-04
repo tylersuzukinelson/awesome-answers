@@ -33,6 +33,8 @@ gem 'delayed_job_web'
 gem 'simple_form'
 gem 'friendly_id'
 gem 'cancancan'
+gem 'carrierwave'
+gem 'mini_magick'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

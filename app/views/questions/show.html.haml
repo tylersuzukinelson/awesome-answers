@@ -1,8 +1,13 @@
 = "<em>#{flash[:notice]}</em>".html_safe if flash[:notice]
-%h3= @question.title
-%p
-  = @question.categories.map(&:name).join(", ")
-%p= @question.body.gsub(/\n/, "<br />").html_safe
+.row
+  .col-md-4
+    = image_tag @question.image_url(:large) if @question.image
+  .col-md-8
+    %h3= @question.title
+    %p
+      = @question.categories.map(&:name).join(", ")
+    %p
+      = @question.body.gsub(/\n/, "<br />").html_safe
 %p
   = "Created by #{@question.user.first_name} on #{standard_date(@question.created_at)} | " if @question.user
   View Count: #{@question.view_count} | Like Count: #{@question.like_count} 
