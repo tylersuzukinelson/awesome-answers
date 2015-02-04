@@ -30,6 +30,8 @@ gem 'slim-rails'
 gem 'haml-rails'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
+gem 'simple_form'
+gem 'friendly_id'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

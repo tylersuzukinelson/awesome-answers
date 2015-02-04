@@ -17,10 +17,9 @@
 %hr
 %h2 Create an Answer
 -# form_for @answer, url: question_answers_apth(@question) do |f|
-= form_for [@question, @answer], remote: true do |f|
-  = f.label :body
-  = f.text_area :body
-  = f.submit
+= simple_form_for [@question, @answer], html: { class: "horizontal-form" }, remote: true do |f|
+  = f.input :body
+  = f.submit class: "btn btn-default"
 %hr
 %h2 Answers
 .answers

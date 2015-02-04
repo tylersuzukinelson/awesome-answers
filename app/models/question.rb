@@ -32,6 +32,10 @@ class Question < ActiveRecord::Base
   scope :last_x_days, lambda { |num| where(created_at: num.days.ago..Time.now) }
   # scope :last_x_days, lambda { |num| where("created_at > ?", num.days.ago)}
 
+  def to_params
+    "#{id}-#{title}".parameterize # parameterize removes spaces and makes it URL friendly
+  end
+
   # Example of the long way to do a class method
   def self.recent(num)
     order("updated_at DESC").limit(num)

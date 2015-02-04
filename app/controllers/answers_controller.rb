@@ -13,7 +13,7 @@ class AnswersController < ApplicationController
         format.js { render }
       else
         format.html { render "questions/show", notice: error_messages }
-        format.js { render js: "alert('#{error_messages}')"}
+        format.js { render }
       end
     end
   end
@@ -21,10 +21,14 @@ class AnswersController < ApplicationController
   def destroy
     @question = current_user.questions.find params[:question_id]
     @answer = current_user.answers.find params[:id]
-    if @answer.destroy
-      redirect_to @question
-    else
-      render "questions/show", notice: error_messages
+    respond_to do |format|
+      if @answer.destroy
+        format.html { redirect_to @question }
+        format.js { render }
+      else
+        format.html { render "questions/show", notice: error_messages }
+        format.js { render }
+      end
     end
   end
 

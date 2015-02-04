@@ -4,19 +4,27 @@ class CommentsController < ApplicationController
     @answer = Answer.find params[:answer_id]
     @comment = Comment.new comment_params
     @comment.answer = @answer
-    if @comment.save
-      redirect_to question_path(@answer.question)
-    else
-      redirect_to question_path(@answer.question), notice: @comment.errors.full_messages.join('; ')
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to question_path(@answer.question) }
+        format.js { render }
+      else
+        format.html { redirect_to question_path(@answer.question), notice: @comment.errors.full_messages.join('; ') }
+        format.js { render }
+      end
     end
   end
 
   def destroy
     @comment = Comment.find params[:id]
-    if @comment.destroy
-      redirect_to @comment.answer.question
-    else
-      redirect_to @comment.answer.question, notice: @comment.errors.full_messages.join('; ')
+    respond_to do |format|
+      if @comment.destroy
+        format.html { redirect_to @comment.answer.question }
+        format.js { render }
+      else
+        format.html { redirect_to @comment.answer.question, notice: @comment.errors.full_messages.join('; ') }
+        format.js { render }
+      end
     end
   end
 

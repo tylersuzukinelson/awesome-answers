@@ -1,0 +1,5 @@
+%div{id: dom_id(comment)}
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  = link_to "Delete", answer_comment_path(answer, comment), method: :delete, class: "btn btn-default", remote: true
+  = comment.body
+  %hr

@@ -1,12 +1,5 @@
-= form_for @question, remote: true do |f|
-  .form-group
-    = f.label :title
-    = f.text_field :title, class: "form-control"
-  .form-group
-    = f.label :body
-    = f.text_area :body, class: "form-control"
-  .form-group
-    = f.label :category_ids
-    = f.collection_check_boxes :category_ids, Category.all, :id, :name
-  .form-group
-    = f.submit class: "btn btn-primary"
+= simple_form_for @question, html: { class: 'form-horizontal' }, remote: true do |f|
+  = f.input :title, label: "THE TITLE", label_html: { style: "font-weight: bold" }, input_html: { style: "width: 150px" }
+  = f.input :body
+  = f.association :categories, as: :check_boxes
+  = f.submit class: "btn btn-primary"
