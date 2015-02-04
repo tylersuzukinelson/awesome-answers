@@ -5,7 +5,9 @@
 %p= @question.body.gsub(/\n/, "<br />").html_safe
 %p
   = "Created by #{@question.user.first_name} on #{standard_date(@question.created_at)} | " if @question.user
-  View Count: #{@question.view_count} | Like Count: #{@question.like_count} | [#{link_to "edit question", edit_question_path}] 
+  View Count: #{@question.view_count} | Like Count: #{@question.like_count} 
+  - if can? :edit, @question
+    | [#{link_to "edit question", edit_question_path}] 
   - if user_signed_in? && current_user.has_liked?(@question)
     | [#{link_to "unlike", question_like_path(@question, @question.like_for(current_user)), method: :delete}]
   - else

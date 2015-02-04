@@ -4,6 +4,8 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
 
+  before_action :restrict_access, only: [:edit, :update, :destroy]
+
   def index
     @questions = Question.all.order("created_at DESC")
   end
@@ -42,6 +44,7 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    redirect_to root_path, alert: "Not enough minerals." unless can? :edit, @question
   end
 
   def update
@@ -63,11 +66,15 @@ class QuestionsController < ApplicationController
   private
 
   def find_question
-    @question = Question.find params[:id]
+    @question = Question.friendly.find params[:id]
   end
 
   def question_params
     params.require(:question).permit([:title, :body, {category_ids: []}])
+  end
+
+  def restrict_access
+    redirect_to root_path, alert: "Not enough minerals." unless can? :manage, @question
   end
 
 end
