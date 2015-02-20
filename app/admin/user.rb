@@ -1,6 +1,16 @@
 ActiveAdmin.register User do
 
 
+  form do |f|
+    f.inputs "User Details" do
+      f.input :email
+      f.input :first_name
+      f.input :last_name
+      f.input :current_sign_in_ip, as: :string
+    end
+    f.actions
+  end
+
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
