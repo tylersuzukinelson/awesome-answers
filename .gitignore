@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 /config/initializers/email_vars.rb
+/config/initializers/twitter_vars.rb
 
 # Ignore bundler config.
 /.bundle

@@ -1,6 +1,7 @@
 = simple_form_for @question, html: { class: 'form-horizontal' } do |f|
   = f.input :title, label: "THE TITLE", label_html: { style: "font-weight: bold" }, input_html: { style: "width: 150px" }
   = f.input :body
+  = f.input :tweet_it, as: :boolean
   = f.input :image
   = f.association :categories, as: :check_boxes
   = f.submit class: "btn btn-primary"

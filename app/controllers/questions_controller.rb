@@ -23,6 +23,10 @@ class QuestionsController < ApplicationController
     @question.user = current_user
     respond_to do |format|
       if @question.save
+        if @question.tweet_it
+          service = Twitter::SendTweet.new(user: current_user, tweet_body: @question.title)
+          service.call
+        end
         format.html { redirect_to @question, notice: "Question created successfully!" }
         format.js { render }
       else
@@ -70,7 +74,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit([:title, :body, {category_ids: []}, :image])
+    params.require(:question).permit([:title, :body, :tweet_it, {category_ids: []}, :image])
   end
 
   def restrict_access

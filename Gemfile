@@ -36,6 +36,9 @@ gem 'cancancan'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'activeadmin', github: 'activeadmin'
+gem 'omniauth-twitter'
+gem 'twitter'
+gem 'virtus'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

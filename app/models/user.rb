@@ -11,7 +11,17 @@ class User < ActiveRecord::Base
   has_many :favorited_questions, through: :favorites, source: :question
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:twitter]
+
+  serialize :omniauth_data
+
+  def email_required?
+    provider.nil?
+  end
+
+  def password_required?
+    provider.nil?
+  end
 
   def has_liked?(question)
     liked_questions.include? question
@@ -24,4 +34,22 @@ class User < ActiveRecord::Base
   def favorite_for(question)
     favorites.where(question_id: question.id).first
   end
+
+  def self.find_or_create_from_twitter(omniauth_data)
+    user = User.where(provider: :twitter, uid: omniauth_data['uid']).first
+    unless user
+      name = omniauth_data['info']['name'].split
+      user = User.create(
+                          provider: :twitter,
+                          uid: omniauth_data['uid'],
+                          first_name: name[0],
+                          last_name: name[1],
+                          twitter_consumer_token: omniauth_data['credentials']['token'],
+                          twitter_consumer_secret: omniauth_data['credentials']['secret'],
+                          omniauth_raw_data: omniauth_data
+                        )
+    end
+    user
+  end
+
 end
